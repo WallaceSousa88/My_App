@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisar Funcionários</title>
+</head>
+<body>
+    <h1>Pesquisar Funcionários</h1>
+    
+    <!-- Formulário de Pesquisa -->
+    <form action="/funcionarios/pesquisar" method="post">
+        <input type="text" name="termo_pesquisa" placeholder="Pesquisar por nome">
+        <button type="submit">Pesquisar</button>
+    </form>
+    
+    <!-- Resultados da Pesquisa -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Cargo</th>
+                <th>Departamento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for funcionario in funcionarios %}
+                <tr>
+                    <td>{{ funcionario.id }}</td>
+                    <td>{{ funcionario.nome }}</td>
+                    <td>{{ funcionario.cargo }}</td>
+                    <td>{{ funcionario.departamento }}</td>
+                    <td>
+                        <a href="/funcionarios/editar/{{ funcionario.id }}">Editar</a>
+                        <a href="/funcionarios/excluir/{{ funcionario.id }}">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- Link para Voltar à Lista de Funcionários -->
+    <a href="/funcionarios">Voltar à Lista de Funcionários</a>
+</body>
+</html>

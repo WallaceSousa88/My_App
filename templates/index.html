@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bem-vindo ao Sistema de Comunicação RH-TI</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+	<header>
+	<div class="container-fluid">
+		<h1 class="display-5"><title>BEM VINDO AO SISTEMA DE GERENCIAMENTO DE INFORMAÇÃO</title></h1>
+	</div>
+	</header>
+	<nav>
+	</nav>
+	<main>
+	<div class="container-fluid">
+	<h1 class="display-6"><br>Objetivo</h1>
+	<p class="lead">O Sistema de Gerenciamento de Informação tem como objetivo melhorar a eficiência da comunicação entre o setor de Recursos Humanos (RH) e o setor de Tecnologia da Informação (TI) da nossa empresa. Com ele, pretendemos simplificar o gerenciamento de informações dos nossos funcionários, fornecendo uma maneira rápida e precisa de acessar e atualizar esses dados.</p>
+	<h1 class="display-6">Como usar ?</h1>
+	<p class="lead">Utilizar o sistema é simples e intuitivo. Aqui estão as etapas básicas para começar:
+		<ul class="list-unstyled">
+			<li><a href="{{ url_for('adicionar_funcionario') }}">Adicionar Funcionário</a>
+				<ul>
+					<li>Essa função adiciona um funcionário ao banco de dados.</li>
+					<li>Todos os campos são obrigatórios.</li>
+				</ul>
+			</li><a href="{{ url_for('editar_funcionario', id=funcionario.id) }}">Editar Funcionário</a>
+				<ul>
+					<li>Essa função edita os dados de um funcionário que já está no banco de dados.</li>
+					<li>Depois de atualizar, os dados serão sobescritos perdendo a informação anterior.</li>
+					<li>Pode ser utilizada para corrigir erros de digitação ou excluir um item.</li>
+				</ul>
+			</li>
+			<li><br><a href="{{ url_for('listar_funcionarios') }}">Lista de Funcionários</a>
+				<ul>
+					<li>Essa função exibe todos os dados de funcionários que estão no banco de dados.</li>
+					<li>É possível pesquisar na barra de texto que se encontra acima das lista.</li>
+					<li>É possível editar e excluir nas opções ao lado de cada funcionário.</li>
+					<li>A lista se mantém sempre atualizada de forma automática.</li>
+				</ul>
+			</li>
+		</ul>
+	</p>
+	</div>
+	</main>
+
+	<aside>
+		<div class="container-fluid">
+			<h1 class="display-6">Novas funções em desenvolvimento</h1>
+			<p class="lead">...</p>
+		</div>
+	</aside>
+
+	<footer>
+		<div class="container-fluid">
+			<figure class="text-center">
+				<figcaption class="blockquote-footer">
+					Dúvidas ou sugestões, favor enviar um <a href="mailto:anderson@dpsuporteti.com.br?cc=atendimento@dpsuporteti.com.br&subject=FYI - Sistema de Gerenciamento de Informação">email</a>. &copy; 2023
+				</figcaption>
+			</figure>
+		</div>
+	</footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
