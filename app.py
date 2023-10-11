@@ -55,6 +55,18 @@ def save():
     db.session.commit()
     return redirect(url_for('index'))
 
+@app.route('/edit/<int:user_id>', methods=['GET', 'POST'])
+def edit_user(user_id):
+    user = User.query.get(user_id)
+    if request.method == 'POST':
+        user.nome = request.form['nome']
+        user.cargo = request.form['cargo']
+        user.departamento = request.form['departamento']
+        user.cpf = request.form['cpf']
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('edit.html', user=user)
+
 @app.route('/delete/<int:user_id>')
 def delete_user(user_id):
     user = User.query.get(user_id)
