@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'FixedSys';
+    src: url('../static/fonts/vgafix.fon') format('fon'); /* Caminho para o arquivo .fon na pasta "static/fonts". */
+}
+
+body {
+    font-family: 'FixedSys', monospace; /* Use a fonte 'FixedSys' e uma fonte de fallback, se necessário. */
+    font-size: 10px;
+}
