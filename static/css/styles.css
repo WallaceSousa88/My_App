@@ -7,3 +7,17 @@ body {
     font-family: 'FixedSys', monospace; /* Use a fonte 'FixedSys' e uma fonte de fallback, se necessário. */
     font-size: 10px;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    text-align: center;
+    padding: 5px;
+}

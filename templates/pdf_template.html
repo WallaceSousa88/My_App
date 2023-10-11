@@ -1,18 +1,27 @@
-<!-- templates/pdf_template.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Lista de Usuários</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <h1>Lista de Usuários</h1>
-    <ul>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Cargo</th>
+            <th>Departamento</th>
+            <th>CPF</th>
+        </tr>
         {% for user in users %}
-            <li>
-                {{ user.nome }} - {{ user.cargo }} - {{ user.departamento }} - {{ user.cpf }}
-            </li>
+            <tr>
+                <td>{{ user.nome }}</td>
+                <td>{{ user.cargo }}</td>
+                <td>{{ user.departamento }}</td>
+                <td>{{ user.cpf }}</td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
 </body>
 </html>

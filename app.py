@@ -75,26 +75,26 @@ def generate_pdf():
     # Caminho para o executável wkhtmltopdf
     config = pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe')
     options = {
-    'page-size': 'A4',
-    'margin-top': '3mm',
-    'margin-right': '2mm',
-    'margin-bottom': '2mm',
-    'margin-left': '3mm',
-    'no-outline': None,  # Oculta a borda do PDF
-    'encoding': 'UTF-8',
-    'disable-smart-shrinking': None,
-    'footer-right': 'Data: [date]',
-    'footer-font-size': '10',
-    'footer-line': None,
-    'footer-spacing': '5',
-    'header-left': 'Página [page] de [toPage]',
-    'header-right': '[section]',
-    'header-line': None,
-    'header-spacing': '5',
-    'user-style-sheet': 'static/css/styles.css'
+        'page-size': 'A4',
+        'margin-top': '0mm',
+        'margin-right': '0mm',
+        'margin-bottom': '0mm',
+        'margin-left': '0mm',
+        'no-outline': None,
+        'encoding': 'UTF-8',
+        'disable-smart-shrinking': None,
+        'footer-right': 'Data: [date]',
+        'footer-font-size': '10',
+        'footer-line': None,
+        'footer-spacing': '5',
+        'header-left': 'Página [page] de [toPage]',
+        'header-right': '[section]',
+        'header-line': None,
+        'header-spacing': '5',
+        'user-style-sheet': 'static/css/styles.css'
     }
 
-    pdf = pdfkit.from_string(html, False, configuration=config, options=options)
+    pdf = pdfkit.from_file('templates/pdf_template.html', False, configuration=config, options=options)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
