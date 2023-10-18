@@ -1,56 +1,40 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Gerenciamento de Dados</title>
+    <title>Lista de Usuários</title>
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
 </head>
 <body>
-    <h1>Gerenciamento de Dados</h1>
-
-    <form method="POST" action="/save">
-        <input type="hidden" name="user_id" id="user_id" value="">
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" id="nome" required><br>
-
-        <label for="cargo">Cargo:</label>
-        <input type="text" name="cargo" id="cargo" required><br>
-
-        <label for "departamento">Departamento:</label>
-        <input type="text" name="departamento" id="departamento" required><br>
-
-        <label for="cpf">CPF:</label>
-        <input type="text" name="cpf" id="cpf" required><br>
-
-        <input type="submit" value="Salvar">
-    </form>
-	<a href="/generate_pdf" target="_blank">Gerar PDF da Lista</a>
-    <h2>Usuários cadastrados:</h2>
-    <ul>
+    <h1>Lista de Usuários</h1>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Cargo</th>
+            <th>Departamento</th>
+            <th>CPF</th>
+        </tr>
         {% for user in users %}
-            <li>
-                {{ user.nome }} - {{ user.cargo }} - {{ user.departamento }} - {{ user.cpf }}
-                <button onclick="editUser('{{ user.id }}', '{{ user.nome }}', '{{ user.cargo }}', '{{ user.departamento }}', '{{ user.cpf }}')">Editar</button>
-                <button onclick="deleteUser('{{ user.id }}')">Excluir</button>
-            </li>
+            <tr>
+                <td>{{ user.nome }}</td>
+                <td>{{ user.cargo }}</td>
+                <td>{{ user.departamento }}</td>
+                <td>{{ user.cpf }}</td>
+                <td><a href="/delete_user/{{ user.id }}" onclick="return confirm('Tem certeza de que deseja excluir este usuário?')">Excluir</a></td>
+            </tr>
         {% endfor %}
-    </ul>
-
-    <script>
-        function editUser(userId, nome, cargo, departamento, cpf) {
-            document.getElementById('user_id').value = userId;
-            document.getElementById('nome').value = nome;
-            document.getElementById('cargo').value = cargo;
-            document.getElementById('departamento').value = departamento;
-            document.getElementById('cpf').value = cpf;
-        }
-
-        function deleteUser(userId) {
-            const confirmDelete = confirm("Tem certeza de que deseja excluir este registro?");
-            if (confirmDelete) {
-                window.location.href = `/delete/${userId}`;
-            }
-        }
-    </script>
+    </table>
+    <form action="/add_user" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome">
+        <label for="cargo">Cargo:</label>
+        <input type="text" id="cargo" name="cargo">
+        <label for="departamento">Departamento:</label>
+        <input type="text" id="departamento" name="departamento">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf">
+        <input type="submit" value="Adicionar Usuário">
+    </form>
+    <a href="/generate_pdf">Gerar PDF</a>
 </body>
 </html>

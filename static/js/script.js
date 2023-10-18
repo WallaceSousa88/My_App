@@ -1,9 +1,3 @@
-// Função para validar o CPF
-function validateCPF(cpf) {
-    // Implemente a validação do CPF aqui
-    // Retorna true se o CPF for válido e false se for inválido
-}
-
 // Função para confirmar a exclusão de um usuário
 function confirmDelete() {
     if (confirm("Tem certeza de que deseja excluir este usuário?")) {
@@ -25,10 +19,7 @@ function validateAddUserForm() {
         return false;
     }
 
-    if (!validateCPF(cpf)) {
-        alert('CPF inválido. Por favor, insira um CPF válido.');
-        return false;
-    }
+    // Adicione aqui a validação do CPF conforme necessário
 
     return true;
 }

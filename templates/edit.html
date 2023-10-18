@@ -1,26 +1,22 @@
-<!-- templates/edit.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Registro</title>
+    <title>Editar Usuário</title>
 </head>
 <body>
-    <h1>Editar Registro</h1>
-    <form method="POST">
+    <h1>Editar Usuário</h1>
+    <form action="/update_user/{{ user.id }}" method="post">
         <label for="nome">Nome:</label>
-        <input type="text" name="nome" value="{{ user.nome }}" required><br>
-
+        <input type="text" id="nome" name="nome" value="{{ user.nome }}">
         <label for="cargo">Cargo:</label>
-        <input type="text" name="cargo" value="{{ user.cargo }}" required><br>
-
+        <input type="text" id="cargo" name="cargo" value="{{ user.cargo }}">
         <label for="departamento">Departamento:</label>
-        <input type="text" name="departamento" value="{{ user.departamento }}" required><br>
-
+        <input type="text" id="departamento" name="departamento" value="{{ user.departamento }}">
         <label for="cpf">CPF:</label>
-        <input type="text" name="cpf" value="{{ user.cpf }}" required><br>
-
-        <input type="submit" value="Salvar Alterações">
+        <input type="text" id="cpf" name="cpf" value="{{ user.cpf }}">
+        <input type="submit" value="Atualizar Usuário">
     </form>
+    <a href="/">Voltar para a Lista</a>
 </body>
 </html>

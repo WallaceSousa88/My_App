@@ -1,12 +1,9 @@
-# Importações
-
 from flask import Flask, render_template, request, redirect, url_for, make_response
 from flask_sqlalchemy import SQLAlchemy
 import pdfkit
 
-
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/data.db'
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -14,65 +11,35 @@ class User(db.Model):
     nome = db.Column(db.String(80))
     cargo = db.Column(db.String(80))
     departamento = db.Column(db.String(80))
-    cpf = db.Column(db.String(11))
+    cpf = db.Column(db.String(14))
 
-# Rota para a página inicial
 @app.route('/')
 def index():
     users = User.query.all()
     return render_template('index.html', users=users)
 
-# Rota para adicionar ou editar um usuário
-@app.route('/save', methods=['POST'])
-def save():
-    user_id = request.form.get('user_id')
-    nome = request.form['nome']
-    cargo = request.form['cargo']
-    departamento = request.form['departamento']
-    cpf = request.form['cpf']
+@app.route('/add_user', methods=['POST'])
+def add_user():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        cargo = request.form['cargo']
+        departamento = request.form['departamento']
+        cpf = request.form['cpf']
 
-    if user_id:
-        user = User.query.get(user_id)
-        user.nome = nome
-        user.cargo = cargo
-        user.departamento = departamento
-        user.cpf = cpf
-    else:
         new_user = User(nome=nome, cargo=cargo, departamento=departamento, cpf=cpf)
         db.session.add(new_user)
+        db.session.commit()
+    return redirect(url_for('index'))
 
+@app.route('/delete_user/<int:id>')
+def delete_user(id):
+    user = User.query.get(id)
+    db.session.delete(user)
     db.session.commit()
     return redirect(url_for('index'))
 
-# Rota para excluir um usuário
-@app.route('/delete/<int:user_id>')
-def delete_user(user_id):
-    user = User.query.get(user_id)
-    if user:
-        db.session.delete(user)
-        db.session.commit()
-    return redirect(url_for('index'))
-
-# Rota para editar um usuário
-@app.route('/edit/<int:user_id>', methods=['GET', 'POST'])
-def edit_user(user_id):
-    user = User.query.get(user_id)
-    if request.method == 'POST':
-        user.nome = request.form['nome']
-        user.cargo = request.form['cargo']
-        user.departamento = request.form['departamento']
-        user.cpf = request.form['cpf']
-        db.session.commit()
-        return redirect(url_for('index'))
-    return render_template('edit.html', user=user)
-
 @app.route('/generate_pdf')
 def generate_pdf():
-    # Rota para gerar o PDF da lista de usuários
-    users = User.query.all()
-    html = render_template('pdf_template.html', users=users)
-    
-    # Caminho para o executável wkhtmltopdf
     config = pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe')
     options = {
         'page-size': 'A4',
@@ -91,10 +58,13 @@ def generate_pdf():
         'header-right': '[section]',
         'header-line': None,
         'header-spacing': '5',
-        'user-style-sheet': 'static/css/styles.css'
+        'user-style-sheet': 'static/css/styles.css'  # Caminho para o arquivo CSS personalizado
     }
 
-    pdf = pdfkit.from_file('templates/pdf_template.html', False, configuration=config, options=options)
+    users = User.query.all()
+    html = render_template('pdf_template.html', users=users)
+
+    pdf = pdfkit.from_string(html, False, configuration=config, options=options)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
