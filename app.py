@@ -17,6 +17,9 @@ class User(db.Model):
     departamento = db.Column(db.String(80))
     cpf = db.Column(db.String(14))
 
+class User(UserMixin, db.Model):
+    # Defina os campos do usuário
+
 @app.route('/')
 def index():
     users = User.query.all()
@@ -41,6 +44,16 @@ def delete_user(id):
     db.session.delete(user)
     db.session.commit()
     return redirect(url_for('index'))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # Implemente a função de login
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 @app.route('/generate_pdf')
 def generate_pdf():
