@@ -1,7 +1,12 @@
+import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+import pdfkit
+import Pagination
 from flask import Flask, render_template, request, redirect, url_for, make_response
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-import pdfkit
+from flask_login
+from flask_paginate
+
+pagination = Pagination(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -22,7 +27,9 @@ class User(UserMixin, db.Model):
 
 @app.route('/')
 def index():
-    users = User.query.all()
+    page = int(request.args.get('page', 1))
+    per_page = 10  # Número de itens por página
+    users = User.query.paginate(page, per_page, False)
     return render_template('index.html', users=users)
 
 @app.route('/add_user', methods=['POST'])
